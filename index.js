@@ -6,9 +6,9 @@ const path = require("path");
 const connectDB = require("./config/db");
 
 // Import routes
-const authRoutes = require("../api/routes/authRoutes");
-const eventRoutes = require("../api/routes/eventRoutes");
-const ticketRoutes = require("../api/routes/ticketRoutes");
+const authRoutes = require("./routes/authRoutes");
+const eventRoutes = require("./routes/eventRoutes");
+const ticketRoutes = require("./routes/ticketRoutes");
 
 const app = express();
 
