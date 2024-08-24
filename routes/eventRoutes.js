@@ -17,9 +17,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage });
 
 // Routes with authentication
-router.post("/createEvent", authMiddleware, upload.single("image"), createEvent);
-router.get("/events", authMiddleware, getEvents);
-router.get("/event/:id", authMiddleware, getEventById);
-router.post("/event/:eventId/like", authMiddleware, likeEvent);
+router.post("/createEvent", upload.single("image"), createEvent); //create event
+router.get("/events",  getEvents);// get all event
+router.get("/event/:id", getEventById); // get specific event by id
+router.post("/event/:eventId/like", likeEvent); //
 
 module.exports = router;

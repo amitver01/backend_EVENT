@@ -8,14 +8,14 @@ const eventSchema = new mongoose.Schema({
     eventDate: { type: Date, required: true },
     eventTime: { type: String, required: true },
     location: { type: String, required: true },
-    participants: { type: Number, default: 0 },
-    count: { type: Number, default: 0 },
-    income: { type: Number, default: 0 },
+   // participants: { type: Number, default: 0 },
+  //  count: { type: Number, default: 0 },
+   // income: { type: Number, default: 0 },
     ticketPrice: { type: Number, required: true },
-    quantity: { type: Number, required: true },
-    //image: { type: String, required: true },
+    //quantity: { type: Number, required: true },
+    image: { type: String, required: true },
     likes: { type: Number, default: 0 },
-    comments: { type: [String], default: [] },
+  //  comments: { type: [String], default: [] },
 }, { timestamps: true });
 
 const Event = mongoose.model("Event", eventSchema);
