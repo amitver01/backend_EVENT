@@ -9,7 +9,7 @@ exports.createEvent = async (req, res) => {
         res.status(201).json(newEvent);
     } catch (error) {
         res
-        res.status(500).json({ error: {error} });
+        res.status(500).json({ error: "Failed to Post" });
     }
 };
 
