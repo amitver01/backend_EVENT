@@ -8,7 +8,7 @@ const connectDB = require("./config/db");
 // Import routes
 const authRoutes = require("./routes/authRoutes");
 const eventRoutes = require("./routes/eventRoutes");
-const ticketRoutes = require("./routes/ticketRoutes");
+
 
 const app = express();
 
@@ -18,10 +18,21 @@ connectDB();
 // Middleware
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({
+const allowedOrigins = [
+    'http://localhost:5173',
+    'https://eventhorizonamit.netlify.app'
+  ];
+  
+  app.use(cors({
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
-    origin: "http://localhost:5173",
-}));
+  }));
 
 // Static files (for uploaded images)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
@@ -29,7 +40,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/events", eventRoutes);
-app.use("/api/tickets", ticketRoutes);
+
 
 // Test route
 app.get("/test", (req, res) => {

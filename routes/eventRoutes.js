@@ -20,6 +20,6 @@ const upload = multer({ storage });
 router.post("/createEvent", upload.single("image"), createEvent); //create event
 router.get("/events",  getEvents);// get all event
 router.get("/event/:id", getEventById); // get specific event by id
-router.post("/event/:eventId/like", likeEvent); //
+
 
 module.exports = router;
