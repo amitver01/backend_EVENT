@@ -3,7 +3,7 @@ const Event = require("../models/Event");
 exports.createEvent = async (req, res) => {
     try {
         const eventData = req.body;
-        //eventData.image = req.file ? req.file.path : "";
+        eventData.image = req.file ? req.file.path : "";
         const newEvent = new Event(eventData);
         await newEvent.save();
         res.status(201).json(newEvent);
