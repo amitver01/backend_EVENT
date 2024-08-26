@@ -68,6 +68,6 @@ exports.profile = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-    res.cookie("token", "").json(true);
-    res.redirect("/");
+    res.cookie("token", "").redirect("/");;
+   
 };
