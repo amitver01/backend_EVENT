@@ -9,7 +9,7 @@ exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
-        res.cookie("check" , 'testing');
+        
         const userDoc = await User.create({
             name,
             email,
@@ -41,16 +41,14 @@ exports.login = async (req, res) => {
                 email: userDoc.email,
                 id: userDoc._id,
             },
-            jwtSecret,
-            { expiresIn: '1h' }, 
+            jwtSecret, 
             (err, token) => {
                 if (err) {
                     return res.status(500).json({ error: "Failed to generate token" });
                 }
-                // Send token in both cookie and response body
                 res.cookie("token", token, {
                     httpOnly: true,
-                    expires: 55500000
+                    expire : 298600000
                 }) 
                     .json({
                         _id: userDoc._id,
@@ -60,6 +58,7 @@ exports.login = async (req, res) => {
                     });
             }
         );
+        
     } catch (err) {
         res.status(500).json({ error: "Server error" });
     }
