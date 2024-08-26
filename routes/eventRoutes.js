@@ -18,7 +18,7 @@ const upload = multer({ storage });
 
 // Routes with authentication
 router.post("/createEvent",authMiddleware, upload.single("image"), createEvent); //create event
-router.get("/events", getEvents);// get all event
+router.get("/events",authMiddleware, getEvents);// get all event
 router.get("/event/:id", getEventById); // get specific event by id
 router.get("/delete/:id" ,authMiddleware, deleteEvent)
  

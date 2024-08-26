@@ -41,7 +41,7 @@ exports.login = async (req, res) => {
                 id: userDoc._id,
             },
             jwtSecret,
-            { expiresIn: '1h' }, // Set token expiry
+            { expiresIn: '1h' }, 
             (err, token) => {
                 if (err) {
                     return res.status(500).json({ error: "Failed to generate token" });
@@ -49,7 +49,7 @@ exports.login = async (req, res) => {
                 // Send token in both cookie and response body
                 res.cookie("token", token, {
                     httpOnly: true,
-                    secure: process.env.NODE_ENV === "production", // ensures the cookie is only sent over HTTPS
+                    secure: "production", // ensures the cookie is only sent over HTTPS
                     sameSite: "strict", // prevents CSRF attacks
                     maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
                 }) // Secure cookie
@@ -57,7 +57,7 @@ exports.login = async (req, res) => {
                         _id: userDoc._id,
                         name: userDoc.name,
                         email: userDoc.email,
-                        token, // Include token in the response
+                        token, 
                     });
             }
         );
