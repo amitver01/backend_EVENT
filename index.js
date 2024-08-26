@@ -34,7 +34,7 @@ const allowedOrigins = [
     credentials: true,
   }));
 
-// Static files (for uploaded images)
+
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // Routes

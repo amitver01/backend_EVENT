@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
         const userDoc = await User.findOne({ email });
 
         if (!userDoc) {
-            return res.status(404).json({ error: "User not found" });
+            return res.status(404).json({ error: "Something went wrong" });
         }
 
         const passOk = bcrypt.compareSync(password, userDoc.password);
@@ -69,4 +69,5 @@ exports.profile = (req, res) => {
 
 exports.logout = (req, res) => {
     res.cookie("token", "").json(true);
+    res.redirect("/");
 };
