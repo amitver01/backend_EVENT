@@ -9,6 +9,7 @@ exports.register = async (req, res) => {
     const { name, email, password } = req.body;
 
     try {
+        res.cookie("check" , 'testing');
         const userDoc = await User.create({
             name,
             email,
@@ -49,10 +50,8 @@ exports.login = async (req, res) => {
                 // Send token in both cookie and response body
                 res.cookie("token", token, {
                     httpOnly: true,
-                    secure: "production", // ensures the cookie is only sent over HTTPS
-                    sameSite: "strict", // prevents CSRF attacks
-                    maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
-                }) // Secure cookie
+                    expires: 55500000
+                }) 
                     .json({
                         _id: userDoc._id,
                         name: userDoc.name,
