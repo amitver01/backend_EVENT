@@ -27,7 +27,7 @@ exports.login = async (req, res) => {
         const userDoc = await User.findOne({ email });
 
         if (!userDoc) {
-            return res.status(404).json({ error: "Something went wrong" });
+            return res.status(404).json({ error: "User not found" });
         }
 
         const passOk = bcrypt.compareSync(password, userDoc.password);
@@ -41,12 +41,24 @@ exports.login = async (req, res) => {
                 id: userDoc._id,
             },
             jwtSecret,
-            {},
+            { expiresIn: '1h' }, // Set token expiry
             (err, token) => {
                 if (err) {
                     return res.status(500).json({ error: "Failed to generate token" });
                 }
-                res.cookie("token", token).json(userDoc);
+                // Send token in both cookie and response body
+                res.cookie("token", token, {
+                    httpOnly: true,
+                    secure: process.env.NODE_ENV === "production", // ensures the cookie is only sent over HTTPS
+                    sameSite: "strict", // prevents CSRF attacks
+                    maxAge: 24 * 60 * 60 * 1000 // 1 day in milliseconds
+                }) // Secure cookie
+                    .json({
+                        _id: userDoc._id,
+                        name: userDoc.name,
+                        email: userDoc.email,
+                        token, // Include token in the response
+                    });
             }
         );
     } catch (err) {
@@ -68,6 +80,6 @@ exports.profile = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-    res.cookie("token", "").redirect("/");;
-   
+    res.cookie("token", "").json({ message: "Logged out successfully" });
 };
+
