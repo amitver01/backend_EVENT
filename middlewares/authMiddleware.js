@@ -19,11 +19,7 @@ const authMiddleware = async (req, res, next) => {
         if (!user) {
             return res.status(401).json({ message: 'Access denied. Invalid token.' });
         }
-
-        // Attach user to the request object
         req.user = user;
-
-        // Proceed to the next middleware or route handler
         next();
     } catch (error) {
         console.error('Authentication error:', error);
