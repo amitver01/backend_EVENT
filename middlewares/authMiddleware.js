@@ -4,10 +4,10 @@ const User = require('../models/User'); // Adjust the path as needed
 const authMiddleware = async (req, res, next) => {
     try {
         // Get the token from the Authorization header
-        const token = req.headers.authorization?.split(' ')[1]; 
+        const token = req.cookies.token;
 
         if (!token) {
-            return res.status(401).json({ message: 'Access denied. No token provided.' });
+            return res.status(401).json({ message: ' No token provided.' });
         }
 
         // Verify the token
