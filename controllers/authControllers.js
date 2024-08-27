@@ -48,7 +48,7 @@ exports.login = async (req, res) => {
                 }
                 res.cookie("token", token, {
                     httpOnly: true,
-                    expire : 298600000
+                    expire : new Date(Date.now() + 50000)
                 }) 
                     .json({
                         _id: userDoc._id,
@@ -67,6 +67,9 @@ exports.login = async (req, res) => {
 exports.profile = (req, res) => {
     const { token } = req.cookies;
     if (token) {
+        res.cookie("check" , 'ok tested' ,{
+            httpOnly: true
+        });
         jwt.verify(token, jwtSecret, {}, async (err, userData) => {
             if (err) throw err;
             const { name, email, _id } = await User.findById(userData.id);
