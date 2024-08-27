@@ -48,9 +48,9 @@ exports.login = async (req, res) => {
                 }
                 res.cookie("token", token, {
                     httpOnly: true,
-                    expire : new Date(Date.now() + 50000)
-                }) 
-                    .json({
+                    maxAge: 24 * 60 * 60 * 1000,
+                    sameSite: 'strict'
+                }).json({
                         _id: userDoc._id,
                         name: userDoc.name,
                         email: userDoc.email,
